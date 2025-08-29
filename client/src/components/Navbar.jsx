@@ -61,11 +61,7 @@ const Navbar = () => {
 
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center space-x-4">
-            <input type="text" placeholder="Search" className="border px-2 py-1 rounded" />
-            <button className="p-2 text-gray-600 hover:text-purple-600 transition-colors duration-200">
-              <Search className="w-5 h-5" />
-            </button>
-
+        
             {/* Clerk Auth */}
             <SignedOut>
              
