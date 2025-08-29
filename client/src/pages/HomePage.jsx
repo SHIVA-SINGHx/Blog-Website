@@ -2,7 +2,7 @@ import React from 'react'
 
 const HomePage = () => {
   return (
-    <div className='bg-red-700'>
+    <div >
       this is the home page form react router dom
     </div>
   )
