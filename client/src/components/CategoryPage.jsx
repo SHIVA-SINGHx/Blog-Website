@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 
-const MainCategories = () => {
+const CategoryPage = () => {
   return (
     <div className="hidden md:flex bg-white rounded-3xl xl:rounded-full p-4 shadow-lg items-center justify-center gap-8">
       {/* links */}
@@ -50,4 +50,4 @@ const MainCategories = () => {
   );
 };
 
-export default MainCategories;
+export default CategoryPage;

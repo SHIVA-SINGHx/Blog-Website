@@ -1,10 +1,14 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import CategoryPage from '../components/CategoryPage'
+import FeaturesPost from '../components/FeaturesPost'
+
+
 
 const HomePage = () => {
   return (
     <div className='mt-20 flex flex-col gap-4'>
+
       <div className='flex gap-4'>
         <Link to="/"> Home </Link>
       <span>*</span>
@@ -20,9 +24,13 @@ const HomePage = () => {
       </div>
     </div>
 
+
+
     {/* CategoryPage */}
     <CategoryPage/>
-
+    {/* {FeaturesPost} */}
+    <FeaturesPost/>
+    
 
       
     </div>
