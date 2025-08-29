@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Menu, X, Search, User, BookOpen } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/clerk-react';
 
 
 const Navbar = () => {
@@ -103,15 +104,22 @@ const Navbar = () => {
                   {item.name}
                 </a>
               ))}
-              <div className="flex items-center space-x-3 pt-3 border-t border-gray-100">
+              <Link className="flex items-center space-x-3 pt-3 border-t border-gray-100">
                 <button className="p-2 text-gray-600 hover:text-purple-600 transition-colors duration-200">
                   <Search className="w-5 h-5" />
                 </button>
-                <button className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2 rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all duration-200 flex items-center space-x-2 flex-1 justify-center">
+                <Link to="/login" className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2 rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all duration-200 flex items-center space-x-2 flex-1 justify-center">
                   <User className="w-4 h-4" />
                   <span>Login</span>
-                </button>
-              </div>
+                </Link>
+                
+              </Link>
+              <SignedOut>
+        <SignInButton />
+      </SignedOut>
+      <SignedIn>
+        <UserButton />
+      </SignedIn>
             </div>
           </div>
         </div>
