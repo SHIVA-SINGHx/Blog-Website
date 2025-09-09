@@ -1,0 +1,21 @@
+import express from "express"
+import user from "./routes/userRouter.js"
+import posts from "./routes/postsRouter.js"
+import comments from "./routes/commentsRouter.js"
+import dbConnect from "./config/database.js"
+
+
+const app = express()
+app.use(express.json())
+
+const port = 8001
+
+app.use("/user", user)
+app.use("/posts", posts)
+app.use("/comments", comments)
+
+app.listen(port, ()=>{
+    dbConnect()
+    console.log(`Server is running on port ${port}`);
+    
+})

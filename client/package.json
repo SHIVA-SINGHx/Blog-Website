@@ -12,6 +12,7 @@
   "dependencies": {
     "@clerk/clerk-react": "^5.45.0",
     "@imagekit/react": "^5.0.1",
+    "axios": "^1.11.0",
     "lucide-react": "^0.536.0",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
