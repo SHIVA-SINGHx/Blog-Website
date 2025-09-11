@@ -3,7 +3,8 @@ import user from "./routes/userRouter.js"
 import posts from "./routes/postsRouter.js"
 import comments from "./routes/commentsRouter.js"
 import dbConnect from "./config/database.js"
-import { clerkwebhook } from "./controllers/authController.js"
+import { clerkwebhook } from "./controllers/weebhooks.js"
+
 
 
 const app = express()
