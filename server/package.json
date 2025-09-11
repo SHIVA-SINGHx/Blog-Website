@@ -12,6 +12,8 @@
   "description": "",
   "dependencies": {
     "@clerk/express": "^1.7.30",
+    "@tanstack/react-query": "^5.87.4",
+    "axios": "^1.11.0",
     "cors": "^2.8.5",
     "dotenv": "^17.2.2",
     "express": "^5.1.0",
