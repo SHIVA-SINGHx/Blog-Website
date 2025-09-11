@@ -1,6 +1,7 @@
 import { Webhook } from "svix"
 import User from "../models/userModel.js"
 
+
 export const clerkwebhook = async (req, res) => {
   try {
     const WEBHOOKS_SECRET = process.env.CLERK_WEBHOOKS_SECRET
@@ -9,11 +10,7 @@ export const clerkwebhook = async (req, res) => {
     }
 
     const payload = req.body
-    const headers = {
-      "svix-id": req.headers["svix-id"],
-      "svix-timestamp": req.headers["svix-timestamp"],
-      "svix-signature": req.headers["svix-signature"],
-    }
+    const headers = req.headers;
 
     const wh = new Webhook(WEBHOOKS_SECRET)
 
@@ -42,6 +39,33 @@ export const clerkwebhook = async (req, res) => {
     }
 
     res.status(200).json({ message: "Webhook handled" })
+
+
+     if (evt.type === "user.created") {
+    const newUser = new User({
+      clerkUserId: evt.data.id,
+      username: evt.data.username || evt.data.email_addresses[0].email_address,
+      email: evt.data.email_addresses[0].email_address,
+      img: evt.data.profile_img_url,
+    });
+
+    await newUser.save();
+  }
+
+  if (evt.type === "user.deleted") {
+    const deletedUser = await User.findOneAndDelete({
+      clerkUserId: evt.data.id,
+    });
+
+    await Post.deleteMany({user:deletedUser._id})
+    await Comment.deleteMany({user:deletedUser._id})
+  }
+
+  return res.status(200).json({
+    message: "Webhook received",
+  });
+
+
   } catch (error) {
     console.error("Webhook error:", error)
     res.status(500).json({ message: "Internal server error" })
