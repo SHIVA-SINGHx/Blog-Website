@@ -2,6 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import CategoryPage from '../components/CategoryPage'
 import FeaturesPost from '../components/FeaturesPost'
+import PostList from '../components/PostList'
 
 
 
@@ -29,8 +30,9 @@ const HomePage = () => {
     {/* CategoryPage */}
     <CategoryPage/>
     {/* {FeaturesPost} */}
-    <FeaturesPost/>
-    
+    {/* <FeaturesPost/>
+    <PostList/>
+     */}
 
       
     </div>

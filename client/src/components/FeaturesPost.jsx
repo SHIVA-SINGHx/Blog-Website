@@ -2,7 +2,8 @@ import { Link } from "react-router-dom";
 import Image from "./Image";
 import axios from "axios";
 import { useQuery } from "@tanstack/react-query";
-import { format } from "timeago.js";
+
+
 
 
 const fetchPost = async () => {
@@ -40,7 +41,7 @@ const FeaturedPosts = () => {
         <div className="flex items-center gap-4">
           <h1 className="font-semibold lg:text-lg">01.</h1>
           <Link className="text-blue-800 lg:text-lg">{posts[0].category}</Link>
-          <span className="text-gray-500">{format(posts[0].createdAt)}</span>
+          <span className="text-gray-500">{(posts[0].createdAt)}</span>
         </div>
         {/* title */}
         <Link
@@ -67,7 +68,7 @@ const FeaturedPosts = () => {
             <div className="flex items-center gap-4 text-sm lg:text-base mb-4">
               <h1 className="font-semibold">02.</h1>
               <Link className="text-blue-800">{posts[1].category}</Link>
-              <span className="text-gray-500 text-sm">{format(posts[1].createdAt)}</span>
+              <span className="text-gray-500 text-sm">{(posts[1].createdAt)}</span>
             </div>
             {/* title */}
             <Link
@@ -93,7 +94,7 @@ const FeaturedPosts = () => {
             <div className="flex items-center gap-4 text-sm lg:text-base mb-4">
               <h1 className="font-semibold">02.</h1>
               <Link className="text-blue-800">{posts[2].category}</Link>
-              <span className="text-gray-500 text-sm">{format(posts[2].createdAt)}</span>
+              <span className="text-gray-500 text-sm">{(posts[2].createdAt)}</span>
             </div>
             {/* title */}
             <Link
@@ -119,7 +120,7 @@ const FeaturedPosts = () => {
             <div className="flex items-center gap-4 text-sm lg:text-base mb-4">
               <h1 className="font-semibold">02.</h1>
               <Link className="text-blue-800">{posts[3].category}</Link>
-              <span className="text-gray-500 text-sm">{format(posts[3].createdAt)}</span>
+              <span className="text-gray-500 text-sm">{(posts[3].createdAt)}</span>
             </div>
             {/* title */}
             <Link
