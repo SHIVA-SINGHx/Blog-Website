@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Menu, X, Search, User, BookOpen } from 'lucide-react';
 import { Link } from 'react-router-dom';
-import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/clerk-react';
+// import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/clerk-react';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -63,7 +63,7 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-4">
         
             {/* Clerk Auth */}
-            <SignedOut>
+            {/* <SignedOut>
              
                 <Link to="/login" className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2 rounded-lg">
                   Login
@@ -72,7 +72,7 @@ const Navbar = () => {
             </SignedOut>
             <SignedIn>
               <UserButton />
-            </SignedIn>
+            </SignedIn> */}
           </div>
 
           {/* Mobile Menu Button */}
@@ -99,7 +99,7 @@ const Navbar = () => {
                 {item.name}
               </Link>
             ))}
-            <SignedOut>
+            {/* <SignedOut>
              
                 <Link to="/login" className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2 rounded-lg w-full">
                   Login
@@ -108,7 +108,7 @@ const Navbar = () => {
             </SignedOut>
             <SignedIn>
               <UserButton />
-            </SignedIn>
+            </SignedIn> */}
           </div>
         )}
       </div>

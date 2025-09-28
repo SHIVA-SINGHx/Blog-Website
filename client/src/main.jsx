@@ -2,7 +2,6 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { ClerkProvider } from "@clerk/clerk-react";
 
 import HomePage from "./pages/HomePage.jsx";
 import PostPage from "./pages/PostPage.jsx";
@@ -42,10 +41,10 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
+   
       <QueryClientProvider client={queryClient}>
       <RouterProvider router={router} />
       </QueryClientProvider>
-    </ClerkProvider>
+
   </StrictMode>
 );
