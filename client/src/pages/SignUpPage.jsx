@@ -1,102 +1,99 @@
-// src/pages/Signup.jsx
-import { useState } from "react";
+
+// import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
+import { Link } from "react-router-dom";
+
 
 export default function SignUpPage() {
-  const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    password: "",
-  });
+  // const [formData, setFormData] = useState({
+  //   username: "",
+  //   email: "",
+  //   password: "",
+  // });
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  // const handleChange = (e) => {
+  //   setFormData({ ...formData, [e.target.name]: e.target.value });
+  // };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log("Form Data:", formData);
-  };
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   console.log("Form Data:", formData);
+  // };
 
   return (
-    <div className="min-h-screen flex items-center justify-center  px-4">
-      <div className="w-full max-w-4xl grid grid-cols-1 md:grid-cols-2 gap-10">
+    <div className="min-h-screen flex items-center justify-center ">
+      <div className="w-full max-w-4xl flex shadow-lg rounded-2xl overflow-hidden">
+        
         {/* Left Side */}
-        <div className="flex flex-col justify-center">
+        <div className="hidden md:flex flex-col justify-center items-center w-1/2 bg-white p-10">
           <h1 className="text-4xl font-bold">
-            <span className="bg-gradient-to-r from-purple-600 to-pink-500 text-transparent bg-clip-text ">
-              Shiva's
-            </span >{" "}
-            <span className="font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-            Blog
-
-            </span>
+            <span className="text-purple-600">Shiva's</span>{" "}
+            <span className="text-gray-800">Blog</span>
           </h1>
-          <p className="text-gray-600 mt-4">
-            This is a demo project. You can sign up with your email and password or with Google.
+          <p className="text-gray-500 mt-4 text-center">
+            This is a demo project. You can sign in with your email and password or with Google.
           </p>
         </div>
 
         {/* Right Side */}
-        <div className="bg-white shadow-lg rounded-2xl p-8">
-          <form className="space-y-5" onSubmit={handleSubmit}>
+        <div className="w-full md:w-1/2 bg-white p-8">
+          <h2 className="text-2xl font-semibold mb-6">Sign In</h2>
+          
+          {/* Form */}
+          <form className="space-y-5">
             <div>
               <label className="block text-sm font-medium text-gray-700">Your username</label>
               <input
                 type="text"
-                name="username"
-                value={formData.username}
-                onChange={handleChange}
-                placeholder="Enter your username"
-                className="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500 outline-none"
+                placeholder="username"
+                className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
               />
             </div>
-
             <div>
               <label className="block text-sm font-medium text-gray-700">Your email</label>
               <input
                 type="email"
-                name="email"
-                value={formData.email}
-                onChange={handleChange}
                 placeholder="name@company.com"
-                className="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500 outline-none"
+                className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
               />
             </div>
-
+            
             <div>
               <label className="block text-sm font-medium text-gray-700">Your password</label>
               <input
                 type="password"
-                name="password"
-                value={formData.password}
-                onChange={handleChange}
-                placeholder="********"
-                className="w-full mt-1 px-3 py-2 border rounded-lg focus:ring-2 focus:ring-purple-500 outline-none"
+                placeholder="••••••••"
+                className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
               />
             </div>
 
             <button
               type="submit"
-              className="w-full py-2 rounded-lg bg-gradient-to-r from-purple-600 to-pink-500 text-white font-medium shadow-md"
+              className="w-full py-2 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold"
             >
-              Sign Up
-            </button>
-
-            <button
-              type="button"
-              className="w-full flex items-center justify-center gap-2 py-2 border rounded-lg shadow-sm hover:bg-gray-50"
-            >
-              <FcGoogle size={20} />
-              Continue with Google
+              Sign In
             </button>
           </form>
 
-          <p className="mt-5 text-sm text-gray-600 text-center">
-            Have an account?{" "}
-            <a href="/signin" className="text-blue-600 hover:underline">
-              Sign in
-            </a>
+          {/* Divider */}
+          <div className="flex items-center my-6">
+            <div className="flex-grow border-t border-gray-300"></div>
+            <span className="px-3 text-gray-500 text-sm">or</span>
+            <div className="flex-grow border-t border-gray-300"></div>
+          </div>
+
+          {/* Google Button */}
+          <button className="w-full flex items-center justify-center gap-3 border border-gray-300 rounded-lg py-2 hover:bg-gray-50 transition">
+            <FcGoogle className="text-xl" />
+            Continue with Google
+          </button>
+
+          {/* Switch to Sign Up */}
+          <p className="text-sm text-gray-600 mt-6 text-center">
+            Don’t have an account?{" "}
+            <Link to="/signin" className="text-purple-600 hover:underline">
+              Sign In
+            </Link>
           </p>
         </div>
       </div>
