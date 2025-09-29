@@ -10,6 +10,7 @@ import MainLayout from "./layouts/MainLayout.jsx";
 import SignUpPage from "./pages/SignUpPage.jsx";
 
 import { Provider } from "./components/ui/provider"
+import SignInPage from "./pages/SignInPage";
 
 
 
@@ -24,6 +25,7 @@ const router = createBrowserRouter([
       { path: "/:slug", element: <SinglePostPage /> },
       { path: "/write", element: <WritePage /> },
       { path: "/signup", element: <SignUpPage /> },
+      { path: "/signin", element: <SignInPage/> },
     ],
   },
 ]);

@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 
-export default function Signup() {
+export default function SignUpPage() {
   const [formData, setFormData] = useState({
     username: "",
     email: "",
