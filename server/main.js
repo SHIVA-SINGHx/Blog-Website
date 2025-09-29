@@ -19,6 +19,7 @@ app.use("/posts", posts)
 app.use("/comments", comments)
 app.use("/auth", signup)
 
+
 app.listen(port, ()=>{
     dbConnect()
     console.log(`Server is running on port ${port}`);
