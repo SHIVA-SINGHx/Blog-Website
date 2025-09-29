@@ -1,9 +1,9 @@
-import bodyParser from "body-parser";
+import express from "express"
+import { signup } from "../controllers/authController.js"
+
+const router = express.Router()
 
 
-app.use(express.json());
+router.post("/signup", signup)
 
-app.post("/clerk",
-  bodyParser.raw({ type: "application/json" }),
-  clerkwebhook
-);
+export default router

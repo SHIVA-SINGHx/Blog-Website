@@ -13,14 +13,10 @@ const userSchema = new Schema(
             required: true,
             unique: true    
         },
-        img:{
+        password:{
             type: String,
-            
-        },
-        savedPost:{
-            type: [String],
-            default: []
-        },
+            required: true
+        }
     },
     {timestamps: true}
 )
