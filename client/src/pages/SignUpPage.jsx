@@ -37,7 +37,7 @@ export default function Signup() {
           </p>
         </div>
 
-        {/* Right Side (Form) */}
+        {/* Right Side */}
         <div className="bg-white shadow-lg rounded-2xl p-8">
           <form className="space-y-5" onSubmit={handleSubmit}>
             <div>
