@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 
 export default function SignInPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+    <div className="min-h-screen flex items-center justify-center ">
       <div className="w-full max-w-4xl flex shadow-lg rounded-2xl overflow-hidden">
         
         {/* Left Side */}
         <div className="hidden md:flex flex-col justify-center items-center w-1/2 bg-white p-10">
           <h1 className="text-4xl font-bold">
-            <span className="text-purple-600">Sahand's</span>{" "}
+            <span className="text-purple-600">Shiva's</span>{" "}
             <span className="text-gray-800">Blog</span>
           </h1>
           <p className="text-gray-500 mt-4 text-center">
