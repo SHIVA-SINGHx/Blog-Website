@@ -3,16 +3,14 @@ import { Link } from 'react-router-dom'
 import CategoryPage from '../components/CategoryPage'
 
 
-
-
 const HomePage = () => {
   return (
     <div className='mt-20 flex flex-col gap-4'>
 
-      <div className='flex gap-4 text-black'>
-        <Link to="/"> Home </Link>
-      <span>*</span>
-      <span className='text-blue-800'> Blogs and Articles </span>
+      <div className='flex gap-4 text-black mt-6'>
+        <Link to="/" className='mt-10'> Home </Link>
+   
+      <span className='text-blue-800 mt-10'> Blogs and Articles </span>
       </div>
 
     {/* Introduction */}
