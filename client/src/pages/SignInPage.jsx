@@ -2,7 +2,7 @@ import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
 
 export default function SignInPage() {
-  
+
   return (
     <div className="min-h-screen flex items-center justify-center ">
       <div className="w-full max-w-4xl flex shadow-lg rounded-2xl overflow-hidden">
@@ -58,8 +58,11 @@ export default function SignInPage() {
           </div>
 
           <button className="w-full flex items-center justify-center gap-3 border border-gray-300 rounded-lg py-2 hover:bg-gray-50 transition">
-            <FcGoogle className="text-xl" />
+            <FcGoogle className="text-xl " />
+            <span className="text-black font-medium">
             Continue with Google
+
+            </span>
           </button>
 
        

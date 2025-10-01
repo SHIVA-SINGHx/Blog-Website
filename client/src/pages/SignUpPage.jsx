@@ -129,7 +129,10 @@ export default function SignUpPage() {
 
           <button className="w-full flex items-center justify-center gap-3 border border-gray-300 rounded-lg py-2 hover:bg-gray-50 transition">
             <FcGoogle className="text-xl" />
+            <span className="text-black font-medium">
             Continue with Google
+
+            </span>
           </button>
 
           <p className="text-sm text-gray-600 mt-6 text-center">
