@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router-dom";
 import { Spinner } from "@chakra-ui/react";
 import { Alert, Stack } from "@chakra-ui/react";
+import OAuth from "../components/Oauth";
 
 export default function SignUpPage() {
   const [formData, setFormData] = useState({});
@@ -126,22 +126,7 @@ export default function SignUpPage() {
             <span className="px-3 text-gray-500 text-sm">or</span>
             <div className="flex-grow border-t border-gray-300"></div>
           </div>
-
-          <button className="w-full flex items-center justify-center gap-3 border border-gray-300 rounded-lg py-2 hover:bg-gray-50 transition">
-            <FcGoogle className="text-xl" />
-            <span className="text-black font-medium">
-            Continue with Google
-
-            </span>
-          </button>
-
-          <p className="text-sm text-gray-600 mt-6 text-center">
-            Already have an account?{" "}
-            <Link to="/signin" className="text-purple-600 hover:underline">
-              Sign In
-            </Link>
-          </p>
-
+        <OAuth/>
           {errorMessage && (
             <Stack gap="4" width="full" className="mt-4">
               <Alert.Root status="error">
