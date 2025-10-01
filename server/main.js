@@ -4,13 +4,18 @@ import posts from "./routes/postsRouter.js"
 import comments from "./routes/commentsRouter.js"
 import dbConnect from "./config/database.js"
 import signup from "./routes/authRoute.js"
-
+import cors from "cors"
 
 
 
 const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
+
+app.use(cors({
+  origin: 'http://localhost:5173', 
+  credentials: true
+}));
 
 const port = 8080
 
