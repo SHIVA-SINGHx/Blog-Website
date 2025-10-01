@@ -8,13 +8,14 @@ import SinglePostPage from "./pages/SinglePostPage.jsx";
 import WritePage from "./pages/WritePage.jsx";
 import MainLayout from "./layouts/MainLayout.jsx";
 import SignUpPage from "./pages/SignUpPage.jsx";
-
-import { Provider } from "./components/ui/provider"
 import SignInPage from "./pages/SignInPage";
 
+import { Provider as ChakraProvider } from "./components/ui/provider";
 
-
-// Create a client
+// Redux imports
+import { Provider } from 'react-redux';
+import { store, persistor } from './redux/store.js';
+import { PersistGate } from 'redux-persist/integration/react';
 
 const router = createBrowserRouter([
   {
@@ -25,16 +26,19 @@ const router = createBrowserRouter([
       { path: "/:slug", element: <SinglePostPage /> },
       { path: "/write", element: <WritePage /> },
       { path: "/signup", element: <SignUpPage /> },
-      { path: "/signin", element: <SignInPage/> },
+      { path: "/signin", element: <SignInPage /> },
     ],
   },
 ]);
 
 createRoot(document.getElementById("root")).render(
-<StrictMode>
-        <Provider>
-      <RouterProvider router={router} />
-        </Provider>
-
+  <StrictMode>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <ChakraProvider>
+          <RouterProvider router={router} />
+        </ChakraProvider>
+      </PersistGate>
+    </Provider>
   </StrictMode>
 );

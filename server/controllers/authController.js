@@ -44,15 +44,16 @@ export const signin = async (req, res, next) => {
 
   if (!email || !password || email.trim() === "" || password.trim() === "") {
     return res.status(400).json({
+      success: false,
       message: "All fields are required",
     });
   }
 
   try {
-
     const checkUser = await User.findOne({ email });
     if (!checkUser) {
       return res.status(404).json({
+        success: false,
         message: "User not found",
       });
     }
@@ -60,6 +61,7 @@ export const signin = async (req, res, next) => {
     const validPassword = bcrypt.compareSync(password, checkUser.password);
     if (!validPassword) {
       return res.status(400).json({
+        success: false,
         message: "Invalid password",
       });
     }
@@ -68,22 +70,25 @@ export const signin = async (req, res, next) => {
       expiresIn: "1d",
     });
 
-    // remove password before sending
     const { password: pass, ...rest } = checkUser._doc;
 
     res
       .status(200)
       .cookie("access_token", token, {
         httpOnly: true,
-        sameSite: "strict",
+        sameSite: "lax",
         
       })
       .json({
+        success: true,
         message: "Login successful",
         user: rest,
         token,
       });
   } catch (error) {
-    return res.status(500).json({ message: error.message });
+    return res.status(500).json({ 
+      success: false,
+      message: error.message 
+    });
   }
 };

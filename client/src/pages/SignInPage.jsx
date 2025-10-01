@@ -1,8 +1,10 @@
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router-dom";
+import { Spinner } from "@chakra-ui/react";
 
 export default function SignInPage() {
+
   const [formData, setFormData] = useState({});
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
@@ -10,10 +12,14 @@ export default function SignInPage() {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
+
+    
+    if (errorMessage) setErrorMessage(null);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
     if (!formData.email || !formData.password) {
       return setErrorMessage("Please fill out all fields");
     }
@@ -21,33 +27,36 @@ export default function SignInPage() {
     try {
       setLoading(true);
       setErrorMessage(null);
+      
       const res = await fetch("http://localhost:8080/auth/signin", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
+        credentials: "include", 
         body: JSON.stringify(formData),
       });
+
       const data = await res.json();
 
-      if (data.success === false) {
+      if (data.success === false || !res.ok) {
         setLoading(false);
-        return setErrorMessage(data.message);
+        return setErrorMessage(data.message || "Something went wrong");
       }
 
       setLoading(false);
-      if (res.ok) {
-        navigate("/home");
-      }
+      navigate("/"); 
+      
     } catch (error) {
-      setErrorMessage(error.message);
+      console.error("Error:", error);
+      setErrorMessage("Failed to connect to server");
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center ">
-      <div className="w-full max-w-4xl flex shadow-lg rounded-2xl overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="w-full max-w-4xl flex shadow-lg rounded-2xl overflow-hidden bg-white">
         {/* Left Side */}
-        <div className="hidden md:flex flex-col justify-center items-center w-1/2 bg-white p-10">
+        <div className="hidden md:flex flex-col justify-center items-center w-1/2 p-10">
           <h1 className="text-4xl font-bold">
             <span className="text-purple-600">Shiva's</span>{" "}
             <span className="text-gray-800">Blog</span>
@@ -59,12 +68,12 @@ export default function SignInPage() {
         </div>
 
         {/* Right Side */}
-        <div className="w-full md:w-1/2 bg-white p-8">
+        <div className="w-full md:w-1/2 p-8">
           <h2 className="text-2xl font-semibold mb-6">Sign In</h2>
 
           <form className="space-y-5" onSubmit={handleSubmit}>
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-gray-700 mb-1">
                 Your email
               </label>
               <input
@@ -72,12 +81,13 @@ export default function SignInPage() {
                 type="email"
                 onChange={handleChange}
                 placeholder="name@company.com"
-                className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                disabled={loading}
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-gray-700 mb-1">
                 Your password
               </label>
               <input
@@ -85,14 +95,22 @@ export default function SignInPage() {
                 type="password"
                 onChange={handleChange}
                 placeholder="••••••••"
-                className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                disabled={loading}
               />
             </div>
+
+
+            {errorMessage && (
+              <div className="p-3 bg-red-50 border border-red-300 rounded-lg">
+                <p className="text-red-700 text-sm font-medium">{errorMessage}</p>
+              </div>
+            )}
 
             <button
               disabled={loading}
               type="submit"
-              className="w-full py-2 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold"
+              className="w-full py-3 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold hover:from-purple-600 hover:to-pink-600 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {loading ? (
                 <span className="flex items-center justify-center gap-2">
@@ -102,7 +120,6 @@ export default function SignInPage() {
               ) : (
                 "Sign In"
               )}
-             
             </button>
           </form>
 
@@ -112,25 +129,20 @@ export default function SignInPage() {
             <div className="flex-grow border-t border-gray-300"></div>
           </div>
 
-          <button className="w-full flex items-center justify-center gap-3 border border-gray-300 rounded-lg py-2 hover:bg-gray-50 transition">
-            <FcGoogle className="text-xl " />
-            <span className="text-black font-medium">Continue with Google</span>
+          <button 
+            type="button"
+            className="w-full flex items-center justify-center gap-3 border border-gray-300 rounded-lg py-3 hover:bg-gray-50 transition"
+          >
+            <FcGoogle className="text-xl" />
+            <span className="text-gray-700 font-medium">Continue with Google</span>
           </button>
 
           <p className="text-sm text-gray-600 mt-6 text-center">
-            Don’t have an account?{" "}
-            <Link to="/signup" className="text-purple-600 hover:underline">
+            Don't have an account?{" "}
+            <Link to="/signup" className="text-purple-600 hover:underline font-medium">
               Sign Up
             </Link>
           </p>
-          {errorMessage && (
-            <Stack gap="4" width="full" className="mt-4">
-              <Alert.Root status="error">
-                <Alert.Indicator />
-                <Alert.Title>{errorMessage}</Alert.Title>
-              </Alert.Root>
-            </Stack>
-          )}
         </div>
       </div>
     </div>
