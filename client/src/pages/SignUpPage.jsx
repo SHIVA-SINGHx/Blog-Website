@@ -65,7 +65,7 @@ export default function SignUpPage() {
         <div className="w-full md:w-1/2 bg-white p-8">
           <h2 className="text-2xl font-semibold mb-6">Sign Up</h2>
 
-          {/* Form */}
+         
           <form className="space-y-5" onSubmit={handleSubmit}>
             <div>
               <label className="block text-sm font-medium text-gray-700">
