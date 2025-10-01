@@ -4,6 +4,7 @@ import posts from "./routes/postsRouter.js"
 import comments from "./routes/commentsRouter.js"
 import dbConnect from "./config/database.js"
 import signup from "./routes/authRoute.js"
+import signin from "./routes/authRoute.js"
 import cors from "cors"
 
 
@@ -19,10 +20,11 @@ app.use(cors({
 
 const port = 8080
 
-app.use("/user", user)
-app.use("/posts", posts)
-app.use("/comments", comments)
-app.use("/auth", signup)
+app.use("/user", user);
+app.use("/posts", posts);
+app.use("/comments", comments);
+app.use("/auth", signup);
+app.use("/auth", signin);
 
 
 app.listen(port, ()=>{
