@@ -1,14 +1,43 @@
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
+import { Spinner } from "@chakra-ui/react"
 
 export default function SignUpPage() {
   const [formData, setFormData] = useState({});
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.id]: e.target.value });
-  };
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, seterrorMessage] = useState(null)
 
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.id]: e.target.value.trim() });
+  };
   console.log(formData);
+
+  const handleSubmit = async (e) =>{
+    e.preventDefault();
+    if(!formData || !formData.email || formData.password){
+      return seterrorMessage("please fill out all fileds");
+    }
+    try {
+      setLoading(true)
+      const res = await fetch('http://localhost:8080/auth/signup', {
+        method: 'POST',
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(formData),
+      });
+
+      const data = await res.json();
+      if(data.success === false){
+        return (`invalid user ${data.message}`);
+      }
+
+      setLoading(false);
+    } catch (error) {
+      return error
+
+    }
+  }
+
 
   return (
     <div className="min-h-screen flex items-center justify-center ">
@@ -30,12 +59,13 @@ export default function SignUpPage() {
           <h2 className="text-2xl font-semibold mb-6">Sign In</h2>
 
           {/* Form */}
-          <form className="space-y-5">
+          <form className="space-y-5" onSubmit={handleSubmit}>
             <div>
               <label className="block text-sm font-medium text-gray-700">
                 Your username
               </label>
               <input
+              
                 id="username"
                 onClick={handleChange}
                 type="text"
@@ -57,7 +87,7 @@ export default function SignUpPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700">
+              <label className="block text-sm font-medium text-gray-700" >
                 Your password
               </label>
               <input
@@ -70,10 +100,15 @@ export default function SignUpPage() {
             </div>
 
             <button
+            disabled= {loading}
               type="submit"
               className="w-full py-2 rounded-lg bg-gradient-to-r from-purple-500 to-pink-500 text-white font-semibold"
             >
-              Sign In
+              {
+                loading ? (
+                 <Spinner size="sm" />
+                ) : "SignUp"
+              }
             </button>
           </form>
 
@@ -90,7 +125,8 @@ export default function SignUpPage() {
 
           <p className="text-sm text-gray-600 mt-6 text-center">
             Don’t have an account?{" "}
-            <Link to="/signin" className="text-purple-600 hover:underline">
+            <Link to="/signin" className="text-purple-600 hover:underline" >
+           
               Sign In
             </Link>
           </p>
