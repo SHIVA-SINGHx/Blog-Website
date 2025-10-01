@@ -2,6 +2,7 @@ import { FcGoogle } from "react-icons/fc";
 import { Link } from "react-router-dom";
 
 export default function SignInPage() {
+  
   return (
     <div className="min-h-screen flex items-center justify-center ">
       <div className="w-full max-w-4xl flex shadow-lg rounded-2xl overflow-hidden">
