@@ -1,7 +1,8 @@
 import { useState } from "react";
-import { FcGoogle } from "react-icons/fc";
+
 import { Link, useNavigate } from "react-router-dom";
 import { Spinner } from "@chakra-ui/react";
+import OAuth from "../components/Oauth";
 
 export default function SignInPage() {
 
@@ -128,21 +129,8 @@ export default function SignInPage() {
             <span className="px-3 text-gray-500 text-sm">or</span>
             <div className="flex-grow border-t border-gray-300"></div>
           </div>
-
-          <button 
-            type="button"
-            className="w-full flex items-center justify-center gap-3 border border-gray-300 rounded-lg py-3 hover:bg-gray-50 transition"
-          >
-            <FcGoogle className="text-xl" />
-            <span className="text-gray-700 font-medium">Continue with Google</span>
-          </button>
-
-          <p className="text-sm text-gray-600 mt-6 text-center">
-            Don't have an account?{" "}
-            <Link to="/signup" className="text-purple-600 hover:underline font-medium">
-              Sign Up
-            </Link>
-          </p>
+          <OAuth/>
+       
         </div>
       </div>
     </div>
