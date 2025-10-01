@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Menu, X, Search, User, BookOpen } from "lucide-react";
 import { Link } from "react-router-dom";
-// import { SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/clerk-react';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -60,7 +59,7 @@ const Navbar = () => {
               </Link>
             ))}
             <div className="hidden md:flex items-center px-6text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent group-hover:w-full bg-purple-400 rounded-lg ">
-              <a href="">
+              <a href="/signin">
      
                   Sign in
               </a>
@@ -70,17 +69,7 @@ const Navbar = () => {
 
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center space-x-4">
-            {/* Clerk Auth */}
-            {/* <SignedOut>
-             
-                <Link to="/login" className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2 rounded-lg">
-                  Login
-                </Link>
-              
-            </SignedOut>
-            <SignedIn>
-              <UserButton />
-            </SignedIn> */}
+        
           </div>
 
           {/* Mobile Menu Button */}
@@ -111,16 +100,6 @@ const Navbar = () => {
                 {item.name}
               </Link>
             ))}
-            {/* <SignedOut>
-             
-                <Link to="/login" className="bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2 rounded-lg w-full">
-                  Login
-                </Link>
-             
-            </SignedOut>
-            <SignedIn>
-              <UserButton />
-            </SignedIn> */}
             
           </div>
         )}
