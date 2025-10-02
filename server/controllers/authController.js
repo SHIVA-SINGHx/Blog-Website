@@ -92,60 +92,76 @@ export const signin = async (req, res, next) => {
   }
 };
 
-export const google = async (req, res, next) =>{
-  const {email, name, googlePhoto } = req.body;
+export const google = async (req, res, next) => {
+  const { email, name, googlePhotoUrl } = req.body; 
 
   try {
-    const user = await User.findOne({email})
-    if(!user){
 
-     const token = jwt.sign({id: user._id}, process.env.JWT_SECRET);
-     const {password, ...rest} = user._doc;
-     res
-      .status(200)
-      .cookie("access_token", token, {
-        httpOnly: true,
-        sameSite: "lax",
-        
-      })
-      .json({
-        success: true,
-        message: "Login successful",
-        user: rest,
+    let user = await User.findOne({ email });
+
+    if (user) {
+
+      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+        expiresIn: "1d",
       });
 
-    } else{
+      const { password, ...rest } = user._doc;
 
-      const generatePassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
+      return res
+        .status(200)
+        .cookie("access_token", token, {
+          httpOnly: true,
+          sameSite: "lax",
+        })
+        .json({
+          success: true,
+          message: "Login successful",
+          user: rest,
+          token,
+        });
+    } else {
+
+      const generatePassword =
+        Math.random().toString(36).slice(-8) +
+        Math.random().toString(36).slice(-8);
       const hashedPassword = bcrypt.hashSync(generatePassword, 10);
+
       const newUser = new User({
-        username: name.toLowerCase().split(" ").join(" ") + Math.random().toString(9).slice(-4),
+        username:
+          name.toLowerCase().split(" ").join("") +
+          Math.random().toString(9).slice(-4),
         email: email,
         password: hashedPassword,
-        profilePicture: googlePhoto,
+        profilePicture: googlePhotoUrl,
       });
 
       await newUser.save();
-      const token = jwt.sign({id: newUser._id}, JWT_SECRET)
-      const {password, ...rest} = newUser._doc
-       res
-      .status(200)
-      .cookie("access_token", token, {
-        httpOnly: true,
-        sameSite: "lax",
-        
-      })
-      .json({
-        success: true,
-        user: rest,
+
+      const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET, {
+        expiresIn: "1d",
       });
 
+      const { password, ...rest } = newUser._doc;
+
+      return res
+        .status(200)
+        .cookie("access_token", token, {
+          httpOnly: true,
+          sameSite: "lax",
+          secure: process.env.NODE_ENV === "production",
+        })
+        .json({
+          success: true,
+          message: "Account created successfully",
+          user: rest,
+          token,
+        });
     }
-    
   } catch (error) {
-     return res.status(500).json({ 
+    console.error("Google auth error:", error);
+    return res.status(500).json({
       success: false,
-      message: error.message 
+      message: error.message || "Server error",
     });
   }
-  }
+};
