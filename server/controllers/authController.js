@@ -91,3 +91,19 @@ export const signin = async (req, res, next) => {
     });
   }
 };
+
+export const google = async (req, res, next) =>{
+  const {email, name, googlePhoto } = req.body;
+
+  try {
+    const user = await User.findOne({email})
+    if(!user){
+      return res.status(400).json({
+        message: ""
+      })
+    }
+    
+  } catch (error) {
+    
+  }
+  }
