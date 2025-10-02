@@ -80,6 +80,7 @@ const OAuth = () => {
         <Link to="/signup" className="text-purple-600 hover:underline font-medium">
           Sign Up
         </Link>
+        
       </p>
     </div>
   );
