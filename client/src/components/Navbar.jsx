@@ -10,7 +10,7 @@ const Navbar = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-
+    // Get user from localStorage
     const user = localStorage.getItem("user");
     if (user) {
       setCurrentUser(JSON.parse(user));
