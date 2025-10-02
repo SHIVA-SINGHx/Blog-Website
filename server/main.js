@@ -5,7 +5,9 @@ import comments from "./routes/commentsRouter.js"
 import dbConnect from "./config/database.js"
 import signup from "./routes/authRoute.js"
 import signin from "./routes/authRoute.js"
+import google from "./routes/authRoute.js"
 import cors from "cors"
+
 
 
 
@@ -25,6 +27,7 @@ app.use("/posts", posts);
 app.use("/comments", comments);
 app.use("/auth", signup);
 app.use("/auth", signin);
+app.use("/auth", google);
 
 
 app.listen(port, ()=>{

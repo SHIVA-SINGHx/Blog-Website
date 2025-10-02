@@ -98,12 +98,54 @@ export const google = async (req, res, next) =>{
   try {
     const user = await User.findOne({email})
     if(!user){
-      return res.status(400).json({
-        message: ""
+
+     const token = jwt.sign({id: user._id}, process.env.JWT_SECRET);
+     const {password, ...rest} = user._doc;
+     res
+      .status(200)
+      .cookie("access_token", token, {
+        httpOnly: true,
+        sameSite: "lax",
+        
       })
+      .json({
+        success: true,
+        message: "Login successful",
+        user: rest,
+      });
+
+    } else{
+
+      const generatePassword = Math.random().toString(36).slice(-8) + Math.random().toString(36).slice(-8);
+      const hashedPassword = bcrypt.hashSync(generatePassword, 10);
+      const newUser = new User({
+        username: name.toLowerCase().split(" ").join(" ") + Math.random().toString(9).slice(-4),
+        email: email,
+        password: hashedPassword,
+        profilePicture: googlePhoto,
+      });
+
+      await newUser.save();
+      const token = jwt.sign({id: newUser._id}, JWT_SECRET)
+      const {password, ...rest} = newUser._doc
+       res
+      .status(200)
+      .cookie("access_token", token, {
+        httpOnly: true,
+        sameSite: "lax",
+        
+      })
+      .json({
+        success: true,
+        user: rest,
+      });
+
     }
     
   } catch (error) {
-    
+     return res.status(500).json({ 
+      success: false,
+      message: error.message 
+    });
   }
   }
