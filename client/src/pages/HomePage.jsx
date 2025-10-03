@@ -5,7 +5,7 @@ import CategoryPage from '../components/CategoryPage'
 
 const HomePage = () => {
   return (
-    <div className='mt-20 flex flex-col gap-4'>
+    <div className='mt-20 flex flex-col gap-4 min-h-screen '>
 
       <div className='flex gap-4 text-black mt-6'>
         <Link to="/" className='mt-10'> Home </Link>

@@ -68,7 +68,7 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300  bg-white text-black dark:bg-gray-900 dark:text-white${
         isScrolled
           ? "bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200 dark:bg-gray-900 dark:border-gray-700"
           : "bg-white shadow-sm dark:bg-gray-900"
@@ -99,9 +99,9 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* Desktop Actions */}
+          {/* Desktop */}
           <div className="hidden md:flex items-center space-x-10">
-            {/* Theme Toggle */}
+
             <HStack wrap="wrap" gap="2">
               <Button
                 variant="outline"
@@ -182,7 +182,7 @@ const Navbar = () => {
             )}
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu  */}
           <div className="md:hidden flex items-center space-x-3">
             <HStack wrap="wrap" gap="2">
               <Button
