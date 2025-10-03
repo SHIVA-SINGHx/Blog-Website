@@ -18,6 +18,8 @@ import { store, persistor } from './redux/store.js';
 import { PersistGate } from 'redux-persist/integration/react';
 import { ThemeProvider } from "./components/ThemeProvider";
 import Dashboard from "./pages/Dashboard";
+import ContactPage from "./pages/ContactPage";
+import AboutPage from "./pages/AboutPage";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +32,8 @@ const router = createBrowserRouter([
       { path: "/signup", element: <SignUpPage /> },
       { path: "/signin", element: <SignInPage /> },
       { path: "/dashboard", element: <Dashboard /> },
+      { path: "/contact", element: <ContactPage /> },
+      { path: "/about", element: <AboutPage /> },
     ],
   },
 ]);
