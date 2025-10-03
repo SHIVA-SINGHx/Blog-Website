@@ -2,8 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
   Menu,
   X,
-  Search,
-  User,
   BookOpen,
   LogOut,
   Settings,
@@ -22,43 +20,44 @@ const Navbar = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const navigate = useNavigate();
-  const theme = useSelector((state) => state.theme.theme); 
+
+  const theme = useSelector((state) => state.theme.theme);
   const dispatch = useDispatch();
 
-
   useEffect(() => {
-  if (theme === "dark") {
-    document.documentElement.classList.add("dark");
-  } else {
-    document.documentElement.classList.remove("dark");
-  }
-}, [theme]);
-  
+    if (theme === "dark") {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  }, [theme]);
+
   useEffect(() => {
     const user = localStorage.getItem("user");
     if (user) {
       setCurrentUser(JSON.parse(user));
     }
   }, []);
-  
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
     };
-    
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-  
+
   const toggleMenu = () => setIsOpen(!isOpen);
-  
+
   const handleSignOut = () => {
     localStorage.removeItem("user");
     setCurrentUser(null);
     setShowDropdown(false);
     navigate("/signin");
   };
-  
+
   const navItems = [
     { name: "Home", href: "/" },
     { name: "Articles", href: "/posts" },
@@ -67,16 +66,15 @@ const Navbar = () => {
     { name: "Contact", href: "/contact" },
   ];
 
-  
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-        ? "bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200"
-          : "bg-white shadow-sm"
+          ? "bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200 dark:bg-gray-900 dark:border-gray-700"
+          : "bg-white shadow-sm dark:bg-gray-900"
       }`}
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8  bg-white text-black dark:bg-gray-900 dark:text-white">
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-2">
@@ -93,7 +91,7 @@ const Navbar = () => {
               <Link
                 key={item.name}
                 to={item.href}
-                className="text-gray-700 hover:text-purple-600 transition-colors duration-200 font-medium relative group"
+                className="text-gray-700 dark:text-gray-200 hover:text-purple-600 dark:hover:text-purple-400 transition-colors duration-200 font-medium relative group"
               >
                 {item.name}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-600 to-blue-600 transition-all duration-300 group-hover:w-full"></span>
@@ -102,16 +100,18 @@ const Navbar = () => {
           </div>
 
           {/* Desktop Actions */}
-
           <div className="hidden md:flex items-center space-x-10">
-            <div>
-              <HStack wrap="wrap" gap="2">
-                <Button variant="outline" className="text-black" onClick={()=>dispatch(toggleTheme())}>
-                     {theme === "light" ? <MdDarkMode/> : <IoSunnySharp />}
-                  
-                </Button>
-              </HStack>
-            </div>
+            {/* Theme Toggle */}
+            <HStack wrap="wrap" gap="2">
+              <Button
+                variant="outline"
+                className="text-black dark:text-white"
+                onClick={() => dispatch(toggleTheme())}
+              >
+                {theme === "light" ? <MdDarkMode /> : <IoSunnySharp />}
+              </Button>
+            </HStack>
+
             {currentUser ? (
               <div className="relative">
                 <button
@@ -129,38 +129,42 @@ const Navbar = () => {
                 </button>
 
                 {showDropdown && (
-                  <div className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-xl border border-gray-200 py-2 z-50">
+                  <div className="absolute right-0 mt-2 w-64 bg-white dark:bg-gray-800 rounded-lg shadow-xl border border-gray-200 dark:border-gray-700 py-2 z-50">
                     {/* User Info */}
-                    <div className="px-4 py-3 border-b border-gray-200">
-                      <p className="text-sm font-semibold text-gray-800">
+                    <div className="px-4 py-3 border-b border-gray-200 dark:border-gray-700">
+                      <p className="text-sm font-semibold text-gray-800 dark:text-gray-100">
                         {currentUser.username || currentUser.name}
                       </p>
-                      <p className="text-xs text-gray-500 mt-1 truncate">
+                      <p className="text-xs text-gray-500 dark:text-gray-400 mt-1 truncate">
                         {currentUser.email}
                       </p>
                     </div>
 
                     <Link
                       to="/profile"
-                      className="flex items-center space-x-3 px-4 py-2 hover:bg-gray-50 transition-colors"
+                      className="flex items-center space-x-3 px-4 py-2 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                       onClick={() => setShowDropdown(false)}
                     >
-                      <UserCircle className="w-4 h-4 text-gray-600" />
-                      <span className="text-sm text-gray-700">Profile</span>
+                      <UserCircle className="w-4 h-4 text-gray-600 dark:text-gray-300" />
+                      <span className="text-sm text-gray-700 dark:text-gray-200">
+                        Profile
+                      </span>
                     </Link>
 
                     <Link
                       to="/settings"
-                      className="flex items-center space-x-3 px-4 py-2 hover:bg-gray-50 transition-colors"
+                      className="flex items-center space-x-3 px-4 py-2 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
                       onClick={() => setShowDropdown(false)}
                     >
-                      <Settings className="w-4 h-4 text-gray-600" />
-                      <span className="text-sm text-gray-700">Settings</span>
+                      <Settings className="w-4 h-4 text-gray-600 dark:text-gray-300" />
+                      <span className="text-sm text-gray-700 dark:text-gray-200">
+                        Settings
+                      </span>
                     </Link>
 
                     <button
                       onClick={handleSignOut}
-                      className="w-full flex items-center space-x-3 px-4 py-2 hover:bg-red-50 transition-colors text-left"
+                      className="w-full flex items-center space-x-3 px-4 py-2 hover:bg-red-50 dark:hover:bg-red-900 transition-colors text-left"
                     >
                       <LogOut className="w-4 h-4 text-red-600" />
                       <span className="text-sm text-red-600">Sign Out</span>
@@ -180,14 +184,15 @@ const Navbar = () => {
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center space-x-3">
-              <div>
-                
-                 <HStack wrap="wrap" gap="2">
-                <Button variant="outline" className="text-black" onClick={()=>dispatch(toggleTheme())}>
-                    {theme === "light" ? <MdDarkMode  /> : <IoSunnySharp />}
-                </Button>
-              </HStack>
-            </div>
+            <HStack wrap="wrap" gap="2">
+              <Button
+                variant="outline"
+                className="text-black dark:text-white"
+                onClick={() => dispatch(toggleTheme())}
+              >
+                {theme === "light" ? <MdDarkMode /> : <IoSunnySharp />}
+              </Button>
+            </HStack>
             {currentUser && (
               <img
                 src={
@@ -199,7 +204,7 @@ const Navbar = () => {
             )}
             <button
               onClick={toggleMenu}
-              className="text-gray-700 hover:text-purple-600 transition-colors duration-200"
+              className="text-gray-700 dark:text-gray-200 hover:text-purple-600 dark:hover:text-purple-400 transition-colors duration-200"
             >
               {isOpen ? (
                 <X className="w-6 h-6" />
@@ -212,13 +217,13 @@ const Navbar = () => {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="md:hidden py-4 space-y-3 border-t border-gray-200">
+          <div className="md:hidden py-4 space-y-3 border-t border-gray-200 dark:border-gray-700">
             {currentUser && (
-              <div className="px-4 py-3 bg-gray-50 rounded-lg mb-3">
-                <p className="text-sm font-semibold text-gray-800">
+              <div className="px-4 py-3 bg-gray-50 dark:bg-gray-800 rounded-lg mb-3">
+                <p className="text-sm font-semibold text-gray-800 dark:text-gray-100">
                   {currentUser.username || currentUser.name}
                 </p>
-                <p className="text-xs text-gray-500 mt-1">
+                <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
                   {currentUser.email}
                 </p>
               </div>
@@ -228,7 +233,7 @@ const Navbar = () => {
               <Link
                 key={item.name}
                 to={item.href}
-                className="block text-gray-700 hover:text-purple-600 transition-colors duration-200 font-medium py-2 px-4"
+                className="block text-gray-700 dark:text-gray-200 hover:text-purple-600 dark:hover:text-purple-400 transition-colors duration-200 font-medium py-2 px-4"
                 onClick={() => setIsOpen(false)}
               >
                 {item.name}
@@ -239,7 +244,7 @@ const Navbar = () => {
               <>
                 <Link
                   to="/profile"
-                  className="flex items-center space-x-3 text-gray-700 hover:text-purple-600 transition-colors duration-200 font-medium py-2 px-4"
+                  className="flex items-center space-x-3 text-gray-700 dark:text-gray-200 hover:text-purple-600 dark:hover:text-purple-400 transition-colors duration-200 font-medium py-2 px-4"
                   onClick={() => setIsOpen(false)}
                 >
                   <UserCircle className="w-5 h-5" />
@@ -248,7 +253,7 @@ const Navbar = () => {
 
                 <Link
                   to="/settings"
-                  className="flex items-center space-x-3 text-gray-700 hover:text-purple-600 transition-colors duration-200 font-medium py-2 px-4"
+                  className="flex items-center space-x-3 text-gray-700 dark:text-gray-200 hover:text-purple-600 dark:hover:text-purple-400 transition-colors duration-200 font-medium py-2 px-4"
                   onClick={() => setIsOpen(false)}
                 >
                   <Settings className="w-5 h-5" />

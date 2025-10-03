@@ -16,7 +16,7 @@ import { Provider as ChakraProvider } from "./components/ui/provider";
 import { Provider } from 'react-redux';
 import { store, persistor } from './redux/store.js';
 import { PersistGate } from 'redux-persist/integration/react';
-import Theme from "./components/Theme";
+import { ThemeProvider } from "./components/ThemeProvider";
 
 const router = createBrowserRouter([
   {
@@ -37,10 +37,9 @@ createRoot(document.getElementById("root")).render(
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <ChakraProvider>
-          <Theme>
+          <ThemeProvider>
           <RouterProvider router={router} />
-
-          </Theme>
+          </ThemeProvider>
         </ChakraProvider>
       </PersistGate>
     </Provider>
