@@ -179,7 +179,6 @@ const Navbar = () => {
                  <HStack wrap="wrap" gap="2">
                 <Button variant="outline" className="text-black" onClick={()=>dispatch(toggleTheme())}>
                     {theme === "light" ? <MdDarkMode  /> : <IoSunnySharp />}
-                  <MdDarkMode  />
                 </Button>
               </HStack>
             </div>
