@@ -12,11 +12,12 @@ import SignInPage from "./pages/SignInPage";
 
 import { Provider as ChakraProvider } from "./components/ui/provider";
 
-// Redux imports
+
 import { Provider } from 'react-redux';
 import { store, persistor } from './redux/store.js';
 import { PersistGate } from 'redux-persist/integration/react';
 import { ThemeProvider } from "./components/ThemeProvider";
+import Dashboard from "./pages/Dashboard";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,7 @@ const router = createBrowserRouter([
       { path: "/write", element: <WritePage /> },
       { path: "/signup", element: <SignUpPage /> },
       { path: "/signin", element: <SignInPage /> },
+      { path: "/dashboard", element: <Dashboard /> },
     ],
   },
 ]);
