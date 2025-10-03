@@ -2,7 +2,7 @@ import React from 'react'
 
 const PostPage = () => {
   return (
-    <div>
+    <div className='m-[100px]'>
       post page  
     </div>
   )
