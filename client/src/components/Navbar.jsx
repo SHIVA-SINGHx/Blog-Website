@@ -26,7 +26,13 @@ const Navbar = () => {
   const dispatch = useDispatch();
 
 
-  
+  useEffect(() => {
+  if (theme === "dark") {
+    document.documentElement.classList.add("dark");
+  } else {
+    document.documentElement.classList.remove("dark");
+  }
+}, [theme]);
   
   useEffect(() => {
     const user = localStorage.getItem("user");
