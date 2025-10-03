@@ -1,6 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Menu, X, Search, User, BookOpen, LogOut, Settings, UserCircle } from "lucide-react";
+import {
+  Menu,
+  X,
+  Search,
+  User,
+  BookOpen,
+  LogOut,
+  Settings,
+  UserCircle,
+} from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import { MdDarkMode } from "react-icons/md";
+import { Button, HStack } from "@chakra-ui/react";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -63,7 +74,6 @@ const Navbar = () => {
             </span>
           </Link>
 
-
           <div className="hidden md:flex items-center space-x-8">
             {navItems.map((item) => (
               <Link
@@ -78,16 +88,27 @@ const Navbar = () => {
           </div>
 
           {/* Desktop Actions */}
-          <div className="hidden md:flex items-center space-x-4">
-            {currentUser ? (
 
+          <div className="hidden md:flex items-center space-x-10">
+            <div>
+              <HStack wrap="wrap" gap="2">
+                <Button variant="outline" className="text-black">
+                  <MdDarkMode />
+                </Button>
+              </HStack>
+            </div>
+
+            {currentUser ? (
               <div className="relative">
                 <button
                   onClick={() => setShowDropdown(!showDropdown)}
                   className="flex items-center space-x-2 focus:outline-none"
                 >
                   <img
-                    src={currentUser.profilePicture || "https://via.placeholder.com/40"}
+                    src={
+                      currentUser.profilePicture ||
+                      "https://via.placeholder.com/40"
+                    }
                     alt={currentUser.username}
                     className="w-10 h-10 rounded-full border-2 border-purple-600 hover:border-purple-700 transition-all cursor-pointer object-cover"
                   />
@@ -134,7 +155,6 @@ const Navbar = () => {
                 )}
               </div>
             ) : (
-
               <Link
                 to="/signin"
                 className="px-6 py-2 bg-gradient-to-r from-purple-600 to-blue-600 text-white font-semibold rounded-lg hover:from-purple-700 hover:to-blue-700 transition-all duration-300 shadow-md hover:shadow-lg"
@@ -146,9 +166,18 @@ const Navbar = () => {
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center space-x-3">
+              <div>
+              <HStack wrap="wrap" gap="2">
+                <Button variant="outline" className="text-black">
+                  <MdDarkMode />
+                </Button>
+              </HStack>
+            </div>
             {currentUser && (
               <img
-                src={currentUser.profilePicture || "https://via.placeholder.com/40"}
+                src={
+                  currentUser.profilePicture || "https://via.placeholder.com/40"
+                }
                 alt={currentUser.username}
                 className="w-9 h-9 rounded-full border-2 border-purple-600 object-cover"
               />
@@ -157,7 +186,11 @@ const Navbar = () => {
               onClick={toggleMenu}
               className="text-gray-700 hover:text-purple-600 transition-colors duration-200"
             >
-              {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {isOpen ? (
+                <X className="w-6 h-6" />
+              ) : (
+                <Menu className="w-6 h-6" />
+              )}
             </button>
           </div>
         </div>
@@ -165,13 +198,14 @@ const Navbar = () => {
         {/* Mobile Navigation */}
         {isOpen && (
           <div className="md:hidden py-4 space-y-3 border-t border-gray-200">
-
             {currentUser && (
               <div className="px-4 py-3 bg-gray-50 rounded-lg mb-3">
                 <p className="text-sm font-semibold text-gray-800">
                   {currentUser.username || currentUser.name}
                 </p>
-                <p className="text-xs text-gray-500 mt-1">{currentUser.email}</p>
+                <p className="text-xs text-gray-500 mt-1">
+                  {currentUser.email}
+                </p>
               </div>
             )}
 
