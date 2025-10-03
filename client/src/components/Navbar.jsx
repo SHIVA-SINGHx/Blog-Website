@@ -11,7 +11,10 @@ import {
 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { MdDarkMode } from "react-icons/md";
+import { IoSunnySharp } from "react-icons/io5";
 import { Button, HStack } from "@chakra-ui/react";
+import { useSelector, useDispatch } from "react-redux";
+import { toggleTheme } from "../redux/theme/themeSlice";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -19,33 +22,37 @@ const Navbar = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
   const navigate = useNavigate();
+  const theme = useSelector((state) => state.theme.theme); 
+  const dispatch = useDispatch();
 
+
+  
+  
   useEffect(() => {
-    // Get user from localStorage
     const user = localStorage.getItem("user");
     if (user) {
       setCurrentUser(JSON.parse(user));
     }
   }, []);
-
+  
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
     };
-
+    
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
+  
   const toggleMenu = () => setIsOpen(!isOpen);
-
+  
   const handleSignOut = () => {
     localStorage.removeItem("user");
     setCurrentUser(null);
     setShowDropdown(false);
     navigate("/signin");
   };
-
+  
   const navItems = [
     { name: "Home", href: "/" },
     { name: "Articles", href: "/posts" },
@@ -54,11 +61,12 @@ const Navbar = () => {
     { name: "Contact", href: "/contact" },
   ];
 
+  
   return (
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200"
+        ? "bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200"
           : "bg-white shadow-sm"
       }`}
     >
@@ -92,12 +100,12 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-10">
             <div>
               <HStack wrap="wrap" gap="2">
-                <Button variant="outline" className="text-black">
-                  <MdDarkMode />
+                <Button variant="outline" className="text-black" onClick={()=>dispatch(toggleTheme())}>
+                     {theme === "light" ? <MdDarkMode/> : <IoSunnySharp />}
+                  
                 </Button>
               </HStack>
             </div>
-
             {currentUser ? (
               <div className="relative">
                 <button
@@ -167,9 +175,11 @@ const Navbar = () => {
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center space-x-3">
               <div>
-              <HStack wrap="wrap" gap="2">
-                <Button variant="outline" className="text-black">
-                  <MdDarkMode />
+                
+                 <HStack wrap="wrap" gap="2">
+                <Button variant="outline" className="text-black" onClick={()=>dispatch(toggleTheme())}>
+                    {theme === "light" ? <MdDarkMode  /> : <IoSunnySharp />}
+                  <MdDarkMode  />
                 </Button>
               </HStack>
             </div>
