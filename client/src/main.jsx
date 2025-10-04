@@ -20,6 +20,7 @@ import { ThemeProvider } from "./components/ThemeProvider";
 import Dashboard from "./pages/Dashboard";
 import ContactPage from "./pages/ContactPage";
 import AboutPage from "./pages/AboutPage";
+import PrivateRoute from "./components/PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,9 @@ const router = createBrowserRouter([
       { path: "/write", element: <WritePage /> },
       { path: "/signup", element: <SignUpPage /> },
       { path: "/signin", element: <SignInPage /> },
+      {element: <PrivateRoute /> 
+
+      },
       { path: "/dashboard", element: <Dashboard /> },
       { path: "/contact", element: <ContactPage /> },
       { path: "/about", element: <AboutPage /> },
