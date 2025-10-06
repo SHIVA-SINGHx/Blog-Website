@@ -3,7 +3,7 @@ import React from 'react'
 const ContactPage = () => {
   return (
     <div className='m-[100px]'>
-      contact
+      This is contact
     </div>
   )
 }
