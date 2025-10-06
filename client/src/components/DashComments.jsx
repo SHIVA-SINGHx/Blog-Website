@@ -3,6 +3,8 @@ import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { HiOutlineExclamationCircle } from 'react-icons/hi';
 import { FaCheck, FaTimes } from 'react-icons/fa';
+import { Table } from '@chakra-ui/react';
+import { Button } from '@chakra-ui/react';
 
 export default function DashComments() {
   const { currentUser } = useSelector((state) => state.user);
